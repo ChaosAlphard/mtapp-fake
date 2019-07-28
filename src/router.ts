@@ -33,5 +33,7 @@ export default new Router({
     //   name: 'about',
     //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     // }
-  ]
+  ],
+  // 被选中时添加的class名
+  linkActiveClass: 'active'
 })

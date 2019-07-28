@@ -19,10 +19,25 @@ export default class AppNav extends Vue {
   display: flex;
   width: 100%;
   height: 40px;
-  line-height: 1;
+  line-height: 40px;
+  border-bottom: 1px solid #E4E4E4
 }
 .nav-item {
+  position: relative;
   flex: 1;
   text-align: center;
+  text-decoration: none;
+  color: #666666
+}
+/* 选中 */
+.nav .active{
+  color: #FFBB22
+}
+.nav .active::before {
+  content: '';
+  position: absolute;
+  top:0; left:40%; right:40%; bottom:0;
+  box-sizing: border-box;
+  border-bottom: 2px solid #FFBB22
 }
 </style>

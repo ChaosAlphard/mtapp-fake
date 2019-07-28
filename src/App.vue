@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 头部 -->
-    <AppHeader/>
+    <AppHeader :info="poiInfo"/>
     <!-- 导航 -->
     <AppNav/>
     <!-- 内容 -->
@@ -15,6 +15,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import AppHeader from '@/components/header/AppHeader.vue'
 import AppNav from '@/components/header/AppNav.vue'
+import { AxiosResponse } from 'axios';
 
 @Component({
   components: {
@@ -23,7 +24,17 @@ import AppNav from '@/components/header/AppNav.vue'
   }
 })
 export default class App extends Vue {
-  name = 'App'
+  protected poiInfo: Object = {}
+
+  private created(): void {
+    axios.get('/goods')
+    .then((res: AxiosResponse) => {
+      if(res.data.code === 0) {
+        this.poiInfo = res.data.data
+        console.log(res.data)
+      }
+    })
+  }
 }
 </script>
 
