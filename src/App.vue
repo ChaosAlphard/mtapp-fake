@@ -23,7 +23,7 @@ import AppNav from '@/components/header/AppNav.vue'
   }
 })
 export default class App extends Vue {
-  protected poiInfo: Object = {}
+  poiInfo: any = {}
 
   private created(): void {
     this.$axios.get('/goods')
