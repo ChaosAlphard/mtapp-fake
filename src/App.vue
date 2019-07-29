@@ -15,7 +15,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 import AppHeader from '@/components/header/AppHeader.vue'
 import AppNav from '@/components/header/AppNav.vue'
-import { AxiosResponse } from 'axios';
 
 @Component({
   components: {
@@ -27,8 +26,8 @@ export default class App extends Vue {
   protected poiInfo: Object = {}
 
   private created(): void {
-    axios.get('/goods')
-    .then((res: AxiosResponse) => {
+    this.$axios.get('/goods')
+    .then(res => {
       if(res.data.code === 0) {
         this.poiInfo = res.data.data
         console.log(res.data)
