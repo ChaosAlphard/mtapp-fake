@@ -26,6 +26,7 @@
     <!-- 公告内容 -->
 
     <!-- 背景内容 -->
+    <div class="bg-wrapper" :style="headPicture"></div>
 
     <!-- 公告详情 -->
   </div>
@@ -37,6 +38,10 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 @Component
 export default class AppHeader extends Vue {
   @Prop(Object) readonly info!: Object
+
+  private get headPicture(): string {
+    return `background-image: url(${this.info})`
+  }
 }
 </script>
 
