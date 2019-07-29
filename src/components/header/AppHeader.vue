@@ -26,7 +26,7 @@
     <!-- 公告内容 -->
 
     <!-- 背景内容 -->
-    <div class="bg-wrapper" :style="headPicture"></div>
+    <div class="bg-wrapper" :style="headPicStyle"></div>
 
     <!-- 公告详情 -->
   </div>
@@ -37,10 +37,14 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class AppHeader extends Vue {
-  @Prop(Object) readonly info!: Object
+  @Prop() readonly info!: any
 
-  private get headPicture(): string {
-    return `background-image: url(${this.info})`
+  private get headPicStyle(): string {
+    if(this.info.poi_info) {
+      return `background-image: url(${this.info.poi_info.head_pic_url})`
+    } else {
+      return ``
+    }
   }
 }
 </script>
@@ -49,5 +53,13 @@ export default class AppHeader extends Vue {
 .header {
   height: 160px;
   padding-top: 20px;
+}
+
+.bg-wrapper {
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 </style>
