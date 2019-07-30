@@ -22,8 +22,17 @@
     </div>
 
     <!-- 主题内容 -->
+    <div></div>
 
     <!-- 公告内容 -->
+    <div class="bulletin-wrapper">
+      <img src="" class="ico">
+      <span class="text"></span>
+      <div class="detail">
+        <span>{{info.discounts2[0].length}}个活动</span>
+        <span class="icon icon-arrow-right"></span>
+      </div>
+    </div>
 
     <!-- 背景内容 -->
     <div class="bg-wrapper" :style="headPicStyle"></div>
