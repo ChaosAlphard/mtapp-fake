@@ -26,11 +26,11 @@ export default class App extends Vue {
   poiInfo: any = {}
 
   private created(): void {
-    this.$axios.get('/goods')
+    this.$axios.get('/goods.json')
     .then(res => {
       if(res.data.code === 0) {
         this.poiInfo = res.data.data
-        console.log(res.data)
+        console.log(this.poiInfo)
       }
     })
   }
