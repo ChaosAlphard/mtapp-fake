@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import AppHeader from '@/components/header/AppHeader.vue'
-import AppNav from '@/components/header/AppNav.vue'
+import AppHeader from '@/components/AppHeader.vue'
+import AppNav from '@/components/AppNav.vue'
 
 @Component({
   components: {
