@@ -1,6 +1,6 @@
 <template>
   <div class="top-wrapper">
-    <span class="back icon icon-arrow-left"></span>
+    <span class="mt-icon icon-arrow-left back"></span>
 
     <div class="search-wrapper">
       <span class="mt-icon icon-search search-icon"></span>
@@ -9,10 +9,7 @@
 
     <div class="more-wrapper">
       <span class="spelling-bt">拼单</span>
-      <div class="more-bt">
-        <span class="s-radius"></span>
-        <span class="s-radius"></span>
-        <span class="s-radius"></span>
+      <div class="mt-icon icon-more more-bt">
       </div>
     </div>
   </div>
@@ -65,8 +62,7 @@ export default class TopWrapper extends Vue {}
   text-align: center;
   line-height: 30px;
   font-size: 18px;
-  /* background: url("../../static/search.png") no-repeat center center; */
-  /* background-size: 15px 15px; */
+  color: #424242;
 }
 
 .search-wrapper .search-bar {
@@ -85,7 +81,8 @@ export default class TopWrapper extends Vue {}
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 75px;
+  color: #FFF;
+  width: 65px;
   height: 30px;
   /* 设置不自适应压缩宽度 */
   flex-shrink: 0;
@@ -95,25 +92,15 @@ export default class TopWrapper extends Vue {}
   width: 30px;
   font-size: 10px;
   padding: 4px 4px;
-  color: #FFF;
   border: 1px solid #FFF;
   text-decoration: none;
   text-align: center;
 }
 
 .more-wrapper .more-bt {
-  width: 30px;
+  width: 20px;
   height: 20px;
-  line-height: 15px;
+  line-height: 20px;
   text-align: center;
-}
-
-.more-wrapper .more-bt .s-radius {
-  display: inline-block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  border: 1px solid white;
-  margin: 1px;
 }
 </style>

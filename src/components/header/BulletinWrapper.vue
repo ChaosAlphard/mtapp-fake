@@ -1,51 +1,60 @@
 <template>
-  <div class="bulletin-wrapper" v-if="poiInfo.discounts2">
-    <img class="ico" :src="poiInfo.discounts2[0].icon_url">
-    <span class="text">{{poiInfo.discounts2[0].info}}</span>
-    <div class="detail" @click="showBulletin()">
-      <span>{{poiInfo.discounts2.length}}个活动</span>
-      <span class="icon icon-arrow-right"></span>
+  <div class="bulletin-wrapper" v-if="discounts">
+    <div class="info" @click="showBulletin()">
+      <span>{{discounts.length?discounts.length:0}}个活动</span>
+      <span class="mt-icon icon-arrow-right more"></span>
+    </div>
+    <div class="detail">
+      <img class="icon" :src="discounts[0].icon_url">
+      <span class="text">{{discounts[0].info}}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
-export default class BulletinWrapper extends Vue {}
+export default class BulletinWrapper extends Vue {
+  @Prop() readonly discounts!: any
+
+  showBulletin(): void {
+    this.$evt.$emit("showBulletin", true)
+  }
+}
 </script>
 
 <style scoped>
 .bulletin-wrapper {
-  height: 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 45px;
   padding: 0 10px;
 }
 
-.bulletin-wrapper .ico {
+.info {
+  color: #FFF;
+}
+
+.info .more {
+  font-size: 14px;
+}
+
+.detail {
+  color: white;
+  font-size: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.detail .icon {
   width: 16px;
   height: 16px;
-  float: left;
-  margin-right: 6px;
-}
-
-.bulletin-wrapper .text {
-  font-size: 11px;
-  color: white;
-  float: left;
-  line-height: 16px;
-}
-
-.bulletin-wrapper .detail {
-  color: white;
-  float: right;
-  font-size: 11px;
-  line-height: 16px;
-}
-
-.bulletin-wrapper .detail span {
-  font-size: 16px;
-  line-height: 16px;
-  float: right;
+  border-radius: 3px;
+  margin-right: 5px;
 }
 </style>

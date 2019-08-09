@@ -22,13 +22,13 @@ export default class ContentWrapper extends Vue {
   @Prop() readonly logoStyle!: string
 
   private favClass = {
-    'icon-star': true,
-    'icon-star-full': false
+    'icon-star-outline': true,
+    'icon-star': false
   }
 
   private toggleFav(): void {
+    this.favClass['icon-star-outline'] = !this.favClass['icon-star-outline']
     this.favClass['icon-star'] = !this.favClass['icon-star']
-    this.favClass['icon-star-full'] = !this.favClass['icon-star-full']
   }
 }
 </script>
@@ -37,7 +37,7 @@ export default class ContentWrapper extends Vue {
 .content-wrapper {
   position: relative;
   width: 100%;
-  height: 80px;
+  height: 85px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
