@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 头部 -->
-    <AppHeader :info="poiInfo"/>
+    <AppHeader :info="info.poi_info"/>
     <!-- 导航 -->
     <AppNav/>
     <!-- 内容 -->
@@ -23,14 +23,14 @@ import AppNav from '@/components/AppNav.vue'
   }
 })
 export default class App extends Vue {
-  poiInfo: any = {}
+  info: any = {}
 
   private created(): void {
     this.$axios.get('/goods.json')
     .then(res => {
       if(res.data.code === 0) {
-        this.poiInfo = res.data.data
-        console.log(this.poiInfo)
+        this.info = res.data.data
+        console.log(this.info)
       }
     })
   }
