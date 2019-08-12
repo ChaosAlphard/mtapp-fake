@@ -9,7 +9,7 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: 'https://www.easy-mock.com/mock/5d2f1668869569169feb56ff/my',
+  baseURL: 'https://www.easy-mock.com/mock/5d2f1668869569169feb56ff',
   // baseURL: 'https://mtapp-a1ffa.firebaseio.com',
   timeout: 5 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
