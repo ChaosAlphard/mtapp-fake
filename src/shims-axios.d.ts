@@ -5,8 +5,8 @@ declare module 'vue/types/vue' {
   interface Vue {
     $axios: AxiosInstance
     $evt: {
-      $emit: any,
-      $on: any
+      $emit: Function,
+      $on: Function
     }
   }
 }
