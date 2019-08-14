@@ -19,7 +19,11 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component
-export default class TopWrapper extends Vue {}
+export default class TopWrapper extends Vue {
+  private updated(): void {
+    console.log("TopWrapper has been Updated!")
+  }
+}
 </script>
 
 <style scoped>

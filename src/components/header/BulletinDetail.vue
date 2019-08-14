@@ -4,8 +4,22 @@
 
       <div class="detail-wrapper bg-wrapper" :style="detailBg">
         <div class="main-wrapper">
-          <div class="icon" :style="logoStyle">
-            <h3 class="name">{{name}}</h3>
+          <div class="icon" :style="logoStyle"></div>
+          <span class="name">{{info.name}}</span>
+          <!-- 星级评价 -->
+          <div class="score">
+            <Star :score="info.wm_poi_score"/>
+            <span>{{info.wm_poi_score}}</span>
+          </div>
+          <!-- Tips -->
+          <div class="top">
+            {{info.min_price_tip}} |
+            {{info.shipping_fee_tip}} |
+            {{info.delivery_time_tip}}
+          </div>
+
+          <div>
+            配送时间: {{info.shipping_time}}
           </div>
         </div>
 
@@ -19,16 +33,21 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import Star from '@/components/Star.vue'
 
-@Component
+@Component({
+  components: {
+    Star
+  }
+})
 export default class BulletinDetail extends Vue {
-  @Prop() readonly name!: string
+  @Prop() readonly info!: any
   @Prop() readonly logoStyle!: string
   @Prop() readonly detailBg!: string
 
   private isShow = false
 
-  toggleBulletinShowing(flag: boolean): void {
+  private toggleBulletinShowing(flag: boolean): void {
     this.isShow = flag
   }
 
@@ -162,6 +181,6 @@ export default class BulletinDetail extends Vue {
   opacity: 0;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s ease-in-out;
+  transition: opacity .3s ease-in-out;
 }
 </style>

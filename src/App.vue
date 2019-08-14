@@ -8,6 +8,8 @@
     <div class="content">
       <router-view></router-view>
     </div>
+    <!-- 提示 -->
+    <div id="tip-content" ref="tip"></div>
   </div>
 </template>
 
@@ -25,6 +27,24 @@ import AppNav from '@/components/AppNav.vue'
 export default class App extends Vue {
   info: any = {}
 
+  private showMessage(msg: string): void {
+    const tip = this.$refs.tip as HTMLDivElement
+    const inner = document.createElement('span')
+    inner.classList.add('tip-text')
+    inner.innerText = msg
+    inner.style.opacity = '0'
+    tip.appendChild(inner)
+    setTimeout(() => {
+      inner.style.opacity = '1'
+    }, 0);
+    setTimeout(()=>{
+      inner.style.opacity = '0'
+    },1500)
+    setTimeout(() => {
+      tip.removeChild(inner)
+    }, 2000);
+  }
+
   private created(): void {
     this.$axios.get('/goods.json')
     .then(res => {
@@ -33,9 +53,26 @@ export default class App extends Vue {
         console.log(this.info)
       }
     })
+    .catch(err => {
+      this.showMessage('Error: 网络异常')
+    })
   }
 }
 </script>
 
 <style>
+#tip-content {
+  position: fixed;
+  bottom: 10vh; left: 50%;
+  transform: translateX(-50%);
+  color: #FFF;
+  font-size: 16px;
+}
+#tip-content > .tip-text {
+  display: inline-block;
+  background-color: #0008;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: opacity .5s;
+}
 </style>
