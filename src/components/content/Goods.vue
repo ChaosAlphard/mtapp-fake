@@ -37,8 +37,8 @@ export default class Goods extends Vue {
         this.container = res.data.data.container_operation_source
         this.goods = res.data.data.food_spu_tags
         console.log("======================")
-        console.table(this.container)
-        console.table(this.goods)
+        console.log(this.container)
+        console.log(this.goods)
       }
     })
   }

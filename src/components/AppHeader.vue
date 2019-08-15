@@ -1,9 +1,7 @@
 <template>
   <div class="header bg-wrapper" :style="headBGStyle">
     <!-- 顶部通栏 -->
-    <!-- v-once: 只渲染该元素一次 -->
-    <!-- v-pre: 跳过这个元素和它的子元素的编译过程 -->
-    <TopWrapper v-pre/>
+    <TopWrapper />
 
     <!-- 主题内容 -->
     <ContentWrapper :name="info?info.name:''" :logoStyle="headLogoStyle"/>
