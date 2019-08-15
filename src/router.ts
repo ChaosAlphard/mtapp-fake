@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // import {Goods, Ratings, Seller} from '@/components/content'
-import Goods from '@/components/content/Goods.vue'
-import Ratings from '@/components/content/Ratings.vue'
-import Seller from '@/components/content/Seller.vue'
+import Goods from '@/views/Goods.vue'
+import Ratings from '@/views/Ratings.vue'
+import Seller from '@/views/Seller.vue'
 
 Vue.use(Router)
 
