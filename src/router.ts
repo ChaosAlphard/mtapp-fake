@@ -27,12 +27,7 @@ export default new Router({
       path: '/seller',
       name: 'seller',
       component: Seller
-    },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    // }
+    }
   ],
   // 被选中时添加的class名
   linkActiveClass: 'active'
