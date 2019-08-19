@@ -38,7 +38,7 @@ export default class AppHeader extends Vue {
   detailBGStyle: string = ''
 
   @Watch('info')
-  onInfoChange(value: any) {
+  onInfoChange(value: any): void {
     this.headBGStyle = `background-image: url(${value.head_pic_url})`
     this.headLogoStyle = `background-image: url(${value.pic_url})`
     this.detailBGStyle = `background-image: url(${value.poi_back_pic_url})`

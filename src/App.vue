@@ -6,7 +6,9 @@
     <AppNav/>
     <!-- 内容 -->
     <div class="content">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view :info="info"></router-view>
+      </keep-alive>
     </div>
     <!-- 提示 -->
     <div id="tip-content" ref="tip"></div>
@@ -51,9 +53,10 @@ export default class App extends Vue {
       if(res.data.code === 0) {
         this.info = res.data.data
         console.log(this.info)
+      } else {
+        this.showMessage('Error: 请求数据失败')
       }
-    })
-    .catch(err => {
+    }).catch(err => {
       this.showMessage('Error: 网络异常')
     })
   }
