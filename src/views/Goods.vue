@@ -27,15 +27,23 @@ import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
 @Component
 export default class Goods extends Vue {
-  @Prop({ default: () => ({}) }) readonly info!: any
+  @Prop() readonly info!: any
 
-  container: any = {}
-  goods: any[] = []
+  // container: any = {}
+  // goods: any[] = []
 
-  @Watch('info')
-  onInfoChange(value: any): void {
-    this.container = value.container_operation_source
-    this.goods = value.food_spu_tags
+  // @Watch('info')
+  // onInfoChange(value: any): void {
+  //   this.container = value.container_operation_source
+  //   this.goods = value.food_spu_tags
+  // }
+
+  private get goods(): any {
+    return this.info?this.info.food_spu_tags:''
+  }
+
+  private get container(): any {
+    return this.info?this.info.container_operation_source:''
   }
 
   private mounted(): void {
