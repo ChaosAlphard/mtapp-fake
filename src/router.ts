@@ -18,15 +18,25 @@ export default new Router({
     },{
       path: '/goods',
       name: 'goods',
-      component: Goods
+      component: Goods,
+      // goods 更新较慢，可缓存下来
+      meta: {
+        keepAlive: true
+      }
     },{
       path: '/ratings',
       name: 'ratings',
-      component: Ratings
+      component: Ratings,
+      meta: {
+        keepAlive: false
+      }
     },{
       path: '/seller',
       name: 'seller',
-      component: Seller
+      component: Seller,
+      meta: {
+        keepAlive: false
+      }
     }
   ],
   // 被选中时添加的class名

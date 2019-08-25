@@ -1,17 +1,22 @@
 <template>
   <div id="app">
     <!-- 头部 -->
-    <AppHeader :info="info.poi_info"/>
+    <AppHeader class="header" :info="info.poi_info"/>
     <!-- 导航 -->
-    <AppNav/>
+    <AppNav class="nav"/>
     <!-- 内容 -->
     <div class="content">
       <keep-alive>
-        <router-view :info="info"></router-view>
+        <router-view v-if="$route.meta.keepAlive"
+        :info="info.food_spu_tags?info:''">
+        </router-view>
       </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"
+      :info="info.food_spu_tags?info:''">
+      </router-view>
     </div>
     <!-- 提示 -->
-    <div id="tip-content" ref="tip"></div>
+    <ShowMsg />
   </div>
 </template>
 
@@ -19,33 +24,18 @@
 import { Vue, Component } from 'vue-property-decorator'
 import AppHeader from '@/components/AppHeader.vue'
 import AppNav from '@/components/AppNav.vue'
+import ShowMsg from '@/components/ShowMsg.vue'
 
 @Component({
   components: {
     AppHeader,
-    AppNav
+    AppNav,
+    ShowMsg
   }
 })
 export default class App extends Vue {
-  info: any = {}
 
-  private showMessage(msg: string): void {
-    const tip = this.$refs.tip as HTMLDivElement
-    const inner = document.createElement('span')
-    inner.classList.add('tip-text')
-    inner.innerText = msg
-    inner.style.opacity = '0'
-    tip.appendChild(inner)
-    setTimeout(() => {
-      inner.style.opacity = '1'
-    }, 0);
-    setTimeout(()=>{
-      inner.style.opacity = '0'
-    },1500)
-    setTimeout(() => {
-      tip.removeChild(inner)
-    }, 2000);
-  }
+  info: any = {}
 
   private created(): void {
     this.$axios.get('/goods.json')
@@ -54,28 +44,32 @@ export default class App extends Vue {
         this.info = res.data.data
         console.log(this.info)
       } else {
-        this.showMessage('Error: 请求数据失败')
+        this.$evt.$emit('showMsg', 'Error: 请求数据失败')
       }
     }).catch(err => {
-      this.showMessage('Error: 网络异常')
+      this.$evt.$emit('showMsg', 'Error: 请求数据失败')
     })
   }
 }
 </script>
 
-<style>
-#tip-content {
-  position: fixed;
-  bottom: 10vh; left: 50%;
-  transform: translateX(-50%);
-  color: #FFF;
-  font-size: 16px;
+<style scoped>
+#app {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
-#tip-content > .tip-text {
-  display: inline-block;
-  background-color: #0008;
-  border-radius: 5px;
-  padding: 5px 10px;
-  transition: opacity .5s;
+.header, .nav, .content {
+  width: 100%;
+}
+.header, .nav {
+  flex-shrink: 0;
+}
+.content {
+  flex-grow: 1;
+  overflow: auto;
 }
 </style>
