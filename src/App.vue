@@ -61,24 +61,29 @@ export default class App extends Vue {
 
 <style scoped>
 #app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
   flex-direction: column;
-  width: 100vw;
 }
-.header, .nav, .content {
+/* .header, .nav, .content {
   width: 100%;
-}
+} */
 .header, .nav {
   flex-shrink: 0;
 }
-.nav {
+/* .nav {
   position: sticky;
   top: 0;
-}
+  bottom: 5px;
+  z-index: 8;
+} */
 .content {
   flex-grow: 1;
-  /* overflow: auto; */
+  position: relative;
+  overflow: hidden;
 }
 </style>
