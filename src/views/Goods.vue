@@ -5,8 +5,14 @@
       <ul class="menu-list">
         <!-- 专场 -->
         <li class="menu-item">
-          <img src="" alt="">
-          <span>{{goods}}</span>
+          <img class="icon" :src="container.tag_icon" v-if="container.tag_icon">
+          <span>{{container.tab_name}}</span>
+        </li>
+        <!-- 其他 -->
+        <li class="menu-item" v-for="(item, i) in goods" :key="i+item.name"
+        @click="selectMenu(i)">
+          <img class="icon" :src="item.icon" v-if="item.icon">
+          <span>{{item.name}}</span>
         </li>
       </ul>
     </div>
@@ -14,9 +20,21 @@
     <div class="foods-wrapper">
       <ul class="food-list">
         <!-- 专场 -->
-        <li class="food-item"></li>
+        <li class="food-item">
+          <div v-for="(item, i) in container.operation_source_list" :key="i">
+            <img :src="item.pic_url">
+          </div>
+        </li>
         <!-- 具体分类 -->
-        <li class="food-item"></li>
+        <li class="food-item" v-for="(item, i) in goods" :key="i">
+          <ul>
+            <span class="title">{{item.name}}</span>
+            <!-- 具体商品 -->
+            <li v-for="(food, fi) in item.spus" :key="fi">
+              {{food.picture}}
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
@@ -29,15 +47,6 @@ import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 export default class Goods extends Vue {
   @Prop() readonly info!: any
 
-  // container: any = {}
-  // goods: any[] = []
-
-  // @Watch('info')
-  // onInfoChange(value: any): void {
-  //   this.container = value.container_operation_source
-  //   this.goods = value.food_spu_tags
-  // }
-
   private get goods(): any {
     return this.info?this.info.food_spu_tags:''
   }
@@ -46,23 +55,8 @@ export default class Goods extends Vue {
     return this.info?this.info.container_operation_source:''
   }
 
-  private mounted(): void {
-    // if(this.goods.length < 1 || this.container.length < 1) {
-    //   this.$axios.get('/goods.json')
-    //   .then(res=>{
-    //     if(res.data.code === 0) {
-    //       this.container = res.data.data.container_operation_source
-    //       this.goods = res.data.data.food_spu_tags
-    //       console.log("======================")
-    //       console.log(this.container)
-    //       console.log(this.goods)
-    //     }
-    //   })
-    // }
-  }
-
   private activated(): void {
-    // 进入组件时设置初始值
+    // 进入组件时设置初始滚动位置
     scrollTo(0,0)
   }
 }
@@ -72,11 +66,14 @@ export default class Goods extends Vue {
 .goods {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
+  position: relative;
+  /* height: 100%; */
 }
 
 .menu-wrapper {
   width: 85px;
+  /* height: 100%; */
   flex-shrink: 0;
   flex-basis: 85px;
   background-color: #FAA;
@@ -84,7 +81,12 @@ export default class Goods extends Vue {
 
 .foods-wrapper {
   min-width: 240px;
+  /* height: 100%; */
   flex-grow: 1;
   background-color: #ADF
+}
+
+.menu-item {
+  border: 1px solid red;
 }
 </style>
