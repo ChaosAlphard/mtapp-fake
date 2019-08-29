@@ -20,7 +20,9 @@ export default class AppNav extends Vue {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  border-bottom: 1px solid #E4E4E4
+  border-bottom: 2px solid #E4E4E4;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
 }
 .nav-item {
   position: relative;
