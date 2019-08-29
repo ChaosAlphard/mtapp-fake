@@ -2,46 +2,78 @@
   <div class="goods">
     <!-- 分类列表 -->
     <div class="menu-wrapper">
-      <ul class="menu-list">
+      <ul class="menu-list" ref="menu">
+
         <!-- 专场 -->
-        <li class="menu-item">
-          <img class="icon" :src="container.tag_icon" v-if="container.tag_icon">
-          <span>{{container.tab_name}}</span>
+        <li class="menu-item" @click="selectMenu(0)">
+          <img class="icon" :src="container.tag_icon" v-if="container.tag_icon"><!--
+          -->{{container.tag_name}}
         </li>
+
         <!-- 其他 -->
         <li class="menu-item" v-for="(item, i) in goods" :key="i+item.name"
-        @click="selectMenu(i)">
-          <img class="icon" :src="item.icon" v-if="item.icon">
-          <span>{{item.name}}</span>
+        @click="selectMenu(i+1)">
+          <img class="icon" :src="item.icon" v-if="item.icon"><!--
+          -->{{item.name}}
+          <span class="num" v-if="item.spus.length !== 0">
+            {{item.spus.length}}
+          </span>
         </li>
+
       </ul>
     </div>
+
     <!-- 商品列表 -->
     <div class="foods-wrapper">
-      <ul class="food-list">
+      <ul class="food-list" ref="food">
+
         <!-- 专场 -->
         <li class="food-item">
           <div v-for="(item, i) in container.operation_source_list" :key="i">
-            <img :src="item.pic_url">
+            <img class="img" :src="item.pic_url">
           </div>
         </li>
+
         <!-- 具体分类 -->
-        <li class="food-item" v-for="(item, i) in goods" :key="i">
-          <ul>
+        <li class="food-classify" v-for="(item, i) in goods" :key="i">
+          <ul class="food-classify-list">
             <span class="title">{{item.name}}</span>
             <!-- 具体商品 -->
-            <li v-for="(food, fi) in item.spus" :key="fi">
-              {{food.picture}}
+            <li class="food-item" v-for="(food, fi) in item.spus" :key="fi">
+              <img class="icon" :src="food.picture" :alt="food.name">
+              <div class="content">
+                <span class="name">{{food.name}}</span>
+                <p class="description" v-if="food.description">
+                  {{food.description}}
+                </p>
+
+                <div class="extra">
+                  <span class="saled">{{food.month_saled_content}}</span>
+                  <span class="praise">{{food.praise_content}}</span>
+                </div>
+
+                <img class="product" :src="food.product_label_picture">
+                <p class="price">
+                  <span class="text">￥{{food.min_price}}</span>
+                  <span class="unit">/{{food.unit}}</span>
+                </p>
+              </div>
+
+              <div class="cart-control-wrapper">
+                <!--  -->
+              </div>
+              <!-- {{food.picture}} -->
             </li>
           </ul>
         </li>
+
       </ul>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class Goods extends Vue {
@@ -68,25 +100,82 @@ export default class Goods extends Vue {
   justify-content: flex-start;
   align-items: stretch;
   position: relative;
-  /* height: 100%; */
+  height: 100%;
 }
 
 .menu-wrapper {
   width: 85px;
-  /* height: 100%; */
   flex-shrink: 0;
   flex-basis: 85px;
-  background-color: #FAA;
+  /* background-color: #EEE; */
+  overflow: auto;
 }
 
 .foods-wrapper {
   min-width: 240px;
-  /* height: 100%; */
   flex-grow: 1;
-  background-color: #ADF
+  /* background-color: #ADF; */
+  overflow: auto;
 }
 
 .menu-item {
-  border: 1px solid red;
+  display: block;
+  border: 1px solid #EEE;
+  padding: 15px 8px;
+  position: relative;
+  font-size: 16px;
+  overflow: hidden;
+  /* 文本不换行 */
+  white-space: nowrap;
+  /* 溢出部分省略 */
+  text-overflow: ellipsis;
+}
+.menu-item .icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+.menu-item .num {
+  position: absolute;
+  top: 0; left: 0;
+  font-size: 8px;
+  width: 15px;
+  height: 15px;
+  background-color: #FAA;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.food-list {
+  position: relative;
+}
+.food-item {
+  width: 100%;
+}
+.food-item .img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.food-classify .title {
+  display: block;
+  padding: 5px 10px;
+  background-color: #FB2;
+  overflow: hidden;
+  /* 文本不换行 */
+  white-space: nowrap;
+  /* 溢出部分省略 */
+  text-overflow: ellipsis;
+}
+.food-classify .food-item {
+  display: flex;
+  justify-content: flex-start;
+  border: 1px solid #FAA;
+  box-sizing: border-box;
+}
+.food-classify .icon {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
 }
 </style>
