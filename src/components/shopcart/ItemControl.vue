@@ -50,7 +50,7 @@ export default class ItemControl extends Vue {
   justify-content: flex-end;
   align-items: stretch;
   border-radius: 25px;
-  background-color: antiquewhite;
+  background-color: #EEE;
 }
 
 .increase, .count, .decrease {
