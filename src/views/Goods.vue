@@ -59,9 +59,9 @@
                 </p>
               </div>
 
-              <div class="cart-control-wrapper">
-                <!--  -->
-              </div>
+              <!-- <div class="cart-control-wrapper"> -->
+              <ItemControl class="item-control" :food="food"/>
+              <!-- </div> -->
               <!-- {{food.picture}} -->
             </li>
           </ul>
@@ -74,8 +74,13 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import ItemControl from '@/components/shopcart/ItemControl.vue'
 
-@Component
+@Component({
+  components: {
+    ItemControl
+  }
+})
 export default class Goods extends Vue {
   @Prop() readonly info!: any
 
@@ -168,6 +173,7 @@ export default class Goods extends Vue {
   text-overflow: ellipsis;
 }
 .food-classify .food-item {
+  position: relative;
   display: flex;
   justify-content: flex-start;
   border: 1px solid #FAA;
@@ -177,5 +183,11 @@ export default class Goods extends Vue {
   width: 64px;
   height: 64px;
   object-fit: cover;
+}
+
+.item-control {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
 }
 </style>
