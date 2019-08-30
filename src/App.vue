@@ -69,18 +69,11 @@ export default class App extends Vue {
   align-items: stretch;
   flex-direction: column;
 }
-/* .header, .nav, .content {
-  width: 100%;
-} */
+
 .header, .nav {
   flex-shrink: 0;
 }
-/* .nav {
-  position: sticky;
-  top: 0;
-  bottom: 5px;
-  z-index: 8;
-} */
+
 .content {
   flex-grow: 1;
   position: relative;
