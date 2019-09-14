@@ -1,19 +1,15 @@
 <template>
   <div id="app">
     <!-- 头部 -->
-    <AppHeader class="header" :info="info.poi_info"/>
+    <AppHeader class="header" :info="info"/>
     <!-- 导航 -->
-    <AppNav class="nav"/>
+    <AppNav class="nav" :num="commentCount"/>
     <!-- 内容 -->
     <div class="content">
       <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"
-        :info="info.food_spu_tags?info:''">
-        </router-view>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
       </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive"
-      :info="info.food_spu_tags?info:''">
-      </router-view>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
     </div>
     <!-- 提示 -->
     <ShowMsg />
@@ -36,13 +32,14 @@ import ShowMsg from '@/components/ShowMsg.vue'
 export default class App extends Vue {
 
   info: any = {}
+  commentCount: number = 0
 
-  private created(): void {
-    this.$axios.get('/goods.json')
+  getIntro(): void {
+    this.$axios.get('/intro.json')
     .then(res => {
       if(res.data.code === 0) {
-        this.info = res.data.data
-        console.log(this.info)
+        this.info = res.data.data.poi_info
+        this.commentCount = res.data.data.comment_num
       } else {
         this.$evt.$emit('showMsg', 'Error: 请求数据失败')
       }
@@ -51,7 +48,12 @@ export default class App extends Vue {
     })
   }
 
+  private created(): void {
+    this.getIntro()
+  }
+
   errorCaptured(err: Error, vm: any, info: string): void|boolean {
+    console.log('%cErrorCaptured:','color:#F44',)
     console.warn(err, vm, info)
     // 返回false 以阻止继续向上传播
     return false

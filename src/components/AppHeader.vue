@@ -33,9 +33,9 @@ import BulletinDetail from './header/BulletinDetail.vue'
 export default class AppHeader extends Vue {
   @Prop() readonly info!: any
 
-  headBGStyle: string = ''
-  headLogoStyle: string = ''
-  detailBGStyle: string = ''
+  headBGStyle: string = `background-image: url(${this.info.head_pic_url})`
+  headLogoStyle: string = `background-image: url(${this.info.pic_url})`
+  detailBGStyle: string = `background-image: url(${this.info.poi_back_pic_url})`
 
   @Watch('info')
   onInfoChange(value: any): void {
