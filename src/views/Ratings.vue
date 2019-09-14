@@ -19,7 +19,6 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-// import BSCroll from 'better-scroll'
 
 @Component
 export default class Ratings extends Vue {
@@ -30,15 +29,15 @@ export default class Ratings extends Vue {
     .then( res => {
       if(res.data.code === 0) {
         this.ratings = res.data
-        // this.$nextTick(() => {
-        //   if((this as any).scroll) {
-        //     this.scroll.refresh()
-        //   } else {
-        //     this.scroll = new BScroll( this.$refs.ratingView, {
-        //       click: true
-        //     })
-        //   }
-        // })
+        this.$nextTick(() => {
+          if(this.scroll) {
+            this.scroll.refresh()
+          } else {
+            this.scroll = new BScroll( this.$refs.ratingView, {
+              click: true
+            })
+          }
+        })
       }
     })
   }

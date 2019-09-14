@@ -1,9 +1,8 @@
 <template>
   <div class="goods">
     <!-- 分类列表 -->
-    <div class="menu-wrapper">
-      <ul class="menu-list" ref="menu">
-
+    <div class="menu-wrapper" ref="menu">
+      <ul class="menu-list">
         <!-- 专场 -->
         <li class="menu-item" @click="selectMenu(0)">
           <img class="icon" :src="container.tag_icon" v-if="container.tag_icon"><!--
@@ -24,9 +23,9 @@
     </div>
 
     <!-- 商品列表 -->
-    <div class="foods-wrapper">
-      <ul class="food-list" ref="food">
+    <div class="foods-wrapper" ref="food">
 
+      <ul class="food-list">
         <!-- 专场 -->
         <li class="food-item">
           <div v-for="(item, i) in container.operation_source_list" :key="i">
@@ -60,6 +59,7 @@
               </div>
 
               <!-- <div class="cart-control-wrapper"> -->
+              <!-- 数量 -->
               <ItemControl class="item-control" :food="food"/>
               <!-- </div> -->
               <!-- {{food.picture}} -->
@@ -68,12 +68,13 @@
         </li>
 
       </ul>
+
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 import ItemControl from '@/components/shopcart/ItemControl.vue'
 
 @Component({
@@ -82,19 +83,49 @@ import ItemControl from '@/components/shopcart/ItemControl.vue'
   }
 })
 export default class Goods extends Vue {
-  @Prop() readonly info!: any
+  goods: any = {}
+  container: any = {}
+  menuScroll: any = {}
+  foodScroll: any = {}
 
-  private get goods(): any {
-    return this.info?this.info.food_spu_tags:''
+  initScroll(): void {
+    this.menuScroll = new BScroll(this.$refs.menu, {
+      click: true
+    })
+
+    this.foodScroll = new BScroll(this.$refs.food, {
+      click: true
+    })
+
+    this.foodScroll.on('scroll', (pos: any) => {
+      console.log(pos)
+    })
   }
 
-  private get container(): any {
-    return this.info?this.info.container_operation_source:''
+  getGoodsData(): void {
+    this.$axios.get('/goods.json')
+    .then(res => {
+      if(res.data.code === 0) {
+        this.goods = res.data.data.food_spu_tags
+        this.container = res.data.data.container_operation_source
+        this.$nextTick(() => {
+          this.initScroll()
+        })
+      } else {
+        this.$evt.$emit('showMsg', 'Error: 请求数据失败')
+      }
+    }).catch(err => {
+      this.$evt.$emit('showMsg', 'Error: 网络异常')
+    })
   }
 
   private activated(): void {
     // 进入组件时设置初始滚动位置
     scrollTo(0,0)
+  }
+
+  private created(): void {
+    this.getGoodsData()
   }
 }
 </script>
@@ -113,14 +144,14 @@ export default class Goods extends Vue {
   flex-shrink: 0;
   flex-basis: 85px;
   /* background-color: #EEE; */
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .foods-wrapper {
   min-width: 240px;
   flex-grow: 1;
   /* background-color: #ADF; */
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .menu-item {
