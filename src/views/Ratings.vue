@@ -22,13 +22,14 @@ import { Vue, Component } from 'vue-property-decorator'
 
 @Component
 export default class Ratings extends Vue {
+  scroll: any = null
   ratings = {}
   
   private created(): void {
     this.$axios.get('/ratings.json')
     .then( res => {
       if(res.data.code === 0) {
-        this.ratings = res.data
+        this.ratings = res.data.data
         this.$nextTick(() => {
           if(this.scroll) {
             this.scroll.refresh()
