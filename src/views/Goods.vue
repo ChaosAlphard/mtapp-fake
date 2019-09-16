@@ -108,9 +108,7 @@ export default class Goods extends Vue {
       if(res.data.code === 0) {
         this.goods = res.data.data.food_spu_tags
         this.container = res.data.data.container_operation_source
-        this.$nextTick(() => {
-          this.initScroll()
-        })
+        this.$nextTick(this.initScroll)
       } else {
         this.$evt.$emit('showMsg', 'Error: 请求数据失败')
       }
